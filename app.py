@@ -337,7 +337,8 @@ Dica: o indice do pedido recem-criado e o tamanho da lista MENOS 1
     >>> pedidos -> [[], []]
 '''
 def cria_pedido():
-    pass
+    pedidos.append([])
+    return len(pedidos) - 1
 
 # reset
 pedidos.clear()
@@ -369,7 +370,7 @@ A funcao nao precisa retornar nada.
     >>> pedidos -> [["pizza", "suco"], ["salada"]]
 '''
 def adiciona_ao_pedido(indice, produto):
-    pass
+    pedidos[indice].append(produto)
 
 # reset
 pedidos.clear()
@@ -406,7 +407,7 @@ esta no pedido.
     >>> pedidos -> [["suco", "pizza"], []]
 '''
 def remove_do_pedido(indice, produto):
-    pass
+    pedidos[indice].remove(produto)
 
 
 # reset
@@ -445,7 +446,13 @@ total_pedido(pedido) numa variavel receita.
     (porque 33 + 15 + 25 = 73)
 '''
 def receita_do_dia():
-    pass
+    receita = 0
+    if len(pedidos) == 0:
+        return 0
+    else:
+        for pedido in pedidos:
+             receita = receita + total_pedido(pedido)
+        return receita
 
 # reset completo: produtos cadastrados e lista de pedidos
 nomes.clear(); precos.clear()
@@ -501,14 +508,16 @@ def menu_principal():
     elif opcao == "2":
         menu_pedidos()
     elif opcao == "3":
-        print("[receita do dia: ainda nao implementado]")  # TODO: chamar receita_do_dia() e mostrar o resultado
+        print(f"Receita do dia: {receita_do_dia()}")  # TODO: chamar receita_do_dia() e mostrar o resultado
     elif opcao == "4":
-        print("[sair: ainda nao implementado]")  # TODO: terminar o programa
+        sair()
     else:
         print("Opcao invalida")
 
     menu_principal()
 
+def sair():
+    print("Obrigado por usar o restaurante! Ate a proxima!")
 
 def menu_produtos():
     print()
@@ -516,6 +525,7 @@ def menu_produtos():
     print("1. Cadastrar produto")
     print("2. Alterar preco de produto")
     print("3. Voltar")
+    print("4. Sair ")
     opcao = input("Opcao: ")
 
     if opcao == "1":
@@ -525,10 +535,14 @@ def menu_produtos():
         print(f"  Produto '{nome}' cadastrado com preco {preco}.")
         menu_produtos()
     elif opcao == "2":
-        print("  [alterar preco: ainda nao implementado]")  # TODO: pedir nome e novo preco, chamar muda_preco(nome, novo_preco)
+        nome = input("  Nome do produto: ")
+        novo_preco = int(input("  Novo preco: "))
+        muda_preco(nome, novo_preco)  # TODO: pedir nome e novo preco, chamar muda_preco(nome, novo_preco)
         menu_produtos()
     elif opcao == "3":
         return
+    elif opcao == "4":
+        sair()
     else:
         print("Opcao invalida")
         menu_produtos()
@@ -541,6 +555,7 @@ def menu_pedidos():
     print("2. Adicionar produto a pedido")
     print("3. Remover produto de pedido")
     print("4. Voltar")
+    print("5. Sair")
     opcao = input("Opcao: ")
 
     if opcao == "1":
@@ -554,10 +569,14 @@ def menu_pedidos():
         print(f"  Produto '{produto}' adicionado ao pedido {indice}.")
         menu_pedidos()
     elif opcao == "3":
-        print("  [remover produto: ainda nao implementado]")  # TODO: pedir indice e nome do produto, chamar remove_do_pedido(indice, produto)
+        indice = int(input("  Indice do pedido: "))
+        produto = input("  Nome do produto: ")
+        remove_do_pedido(indice, produto)  # TODO: pedir indice e nome do produto, chamar remove_do_pedido(indice, produto)
         menu_pedidos()
     elif opcao == "4":
         return
+    elif opcao == "5":
+        sair()
     else:
         print("Opcao invalida")
         menu_pedidos()
@@ -566,4 +585,4 @@ def menu_pedidos():
 def main():
     menu_principal()
 
-main()
+#main()
