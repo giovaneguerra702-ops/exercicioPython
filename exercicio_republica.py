@@ -271,7 +271,7 @@ Quem nao participou de nenhuma conta deve 0.
 def quanto_deve(nome):
     total = 0
     for conta in contas:
-        descricao, valor, participantes = conta
+        descricao, valor, participantes = conta #desempacotamento de lista: conta[0] vai para descricao, conta[1] para valor e conta[2] para participantes
         if nome in participantes:
             total += valor / len(participantes)
     return total
@@ -358,11 +358,11 @@ adiciona_conta("uber", 20, ["ana", "carla"])
 
 
 def integrantes():
-    nomes = set()
+    nomes = set() #usamos um set porque ele nao aceita repetidos, entao se o mesmo nome aparecer em varias contas, ele so vai contar uma vez
     for conta in contas:
-        descricao, valor , participantes = conta
+        descricao, valor , participantes = conta #conta[0] vai para descricao, conta[1] para valor e conta[2] para participantes assim eu consigo analisar separadamente cada um desses elementos
         for participante in participantes:
-            nomes.add(participante)
+            nomes.add(participante) #adiciona o nome do participante no set de nomes. Se o nome ja estiver la, ele nao vai adicionar de novo, entao no final a gente tem so os nomes unicos de quem participou de alguma conta, nao usa append porque nomes e um set, nao uma lista
     return list(nomes)
 
 assert len(integrantes()) == 3, "a casa atualmente tem 3 integrantes. Cuidado"
