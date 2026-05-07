@@ -271,9 +271,8 @@ Quem nao participou de nenhuma conta deve 0.
 def quanto_deve(nome):
     total = 0
     for conta in contas:
-        descricao, valor, participantes = conta #desempacotamento de lista: conta[0] vai para descricao, conta[1] para valor e conta[2] para participantes
-        if nome in participantes:
-            total += valor / len(participantes)
+        if nome in contas[2]:
+            total += contas[1] / len(contas[2])
     return total
 
 contas.clear()
