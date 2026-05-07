@@ -1,4 +1,4 @@
-
+import os# system('cls')
 '''
 EXPLICACAO
 
@@ -514,10 +514,9 @@ def menu_principal():
     else:
         print("Opcao invalida")
 
-    menu_principal()
-
 def sair():
     print("Obrigado por usar o restaurante! Ate a proxima!")
+    os.system('cls')
 
 def menu_produtos():
     print()
@@ -585,4 +584,4 @@ def menu_pedidos():
 def main():
     menu_principal()
 
-#main()
+main()
