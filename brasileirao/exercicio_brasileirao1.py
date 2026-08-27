@@ -586,12 +586,12 @@ fatia a classificacao.
     ['76', '26', '21', '18']
 '''
 def rebaixados(dados):
-    rebaixados = dados['fases']['2700']['faixas-classificacao']['classifica3']['faixa']
-    qtd_rebaixado = int(rebaixados[1])
-    qtd_rebaixado = 10 - qtd_rebaixado
-    for i in range(qtd_rebaixado):
-        a
-
+    faixa = dados['fases']['2700']['faixas-classificacao']['classifica3']['faixa']
+    inicio, fim = faixa.split('-')
+    inicio = int(inicio) - 1
+    fim = int(fim)
+    classificacao = dados['fases']['2700']['classificacao']['grupo']['unico'][inicio:fim]
+    return classificacao
 
 
 assert rebaixados(dados2018) == ['76', '26', '21', '18'], 'rebaixados(dados2018)'
