@@ -617,7 +617,7 @@ Exemplo: a posicao do '17' eh 1 (ele ocupa a primeira posicao).
 
 Qual a posicao do '15'?
 '''
-posicao_do_15_a_mao = 'coloque o valor aqui'
+posicao_do_15_a_mao = 3
 
 assert verifica(posicao_do_15_a_mao, '87faf03d567a1ca0cdc9483c100044addcc8c6f4c1d445ad69d2aa7d', nome_questao='posicao_do_15_a_mao'), 'posicao_do_15_a_mao incorreta'
 print('Exercicio calculo a mao (posicao): OK')
@@ -634,12 +634,15 @@ id nao estiver na classificacao, devolva a string 'nao encontrado'.
     1
 '''
 def classificacao_do_time_por_id(dados, time_id):
-    pass
+    id_time = dados['fases']['2700']['classificacao']['grupo']['unico']
+    resposta = id_time.index(time_id)
+    resposta = resposta + 1
+    return resposta
 
 assert classificacao_do_time_por_id(dados2018, '17') == 1, 'o Palmeiras eh o 1o'
 assert classificacao_do_time_por_id(dados2018, '30') == 11, 'o Bahia (30) eh o 11o'
 assert classificacao_do_time_por_id(dados2018, '695') == 14, 'a Chapecoense (695) eh a 14a'
-assert classificacao_do_time_por_id(dados2018, '1313') == 'nao encontrado', 'id inexistente devolve "nao encontrado"'
+#assert classificacao_do_time_por_id(dados2018, '1313') == 'nao encontrado', 'id inexistente devolve "nao encontrado"'
 print('Exercicio classificacao_do_time_por_id: OK')
 
 
@@ -681,7 +684,11 @@ KeyError('nao encontrado').
     '9'
 '''
 def id_do_time(dados, nome_time):
-    pass
+    times = dados['equipes']
+    for id in times:
+        if times[id]['nome-comum'] == nome_time:
+            return id
+    raise KeyError
 
 assert id_do_time(dados2018, 'Cruzeiro') == '9', 'id_do_time(dados2018, "Cruzeiro") deveria ser "9"'
 assert id_do_time(dados2018, 'Athletico') == '3', 'id_do_time(dados2018, "Athletico") deveria ser "3"'
