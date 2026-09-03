@@ -722,7 +722,7 @@ para True.
 '''
 
 
-desafio = False    # ligue o desafio mudando para True
+desafio = True   # ligue o desafio mudando para True
 
 
 '''
@@ -742,7 +742,7 @@ status CORRETO, de acordo com esse padrao?
     c) 500 - "o servidor quebrou"
     d) 204 - "deu certo, mas nao tem conteudo"
 '''
-status_certo_de_cep_que_nao_existe = 'coloque o valor aqui'   # 'a', 'b', 'c' ou 'd'
+status_certo_de_cep_que_nao_existe = 'a'   # 'a', 'b', 'c' ou 'd'
 
 # Travou? Descomente a linha abaixo para ler a explicacao:
 # explicar('status_certo_de_cep_que_nao_existe')
@@ -771,7 +771,7 @@ A linha da requisicao vai aparecer na lista (o endereco dela termina em
 Se a lista estiver vazia, eh porque a aba abriu depois de a pagina
 carregar: aperte F5 com ela aberta, e o pedido aparece.
 '''
-status_viacep_de_cep_que_nao_existe = 'coloque o valor aqui'   # 'a', 'b', 'c' ou 'd'
+status_viacep_de_cep_que_nao_existe = 'b'   # 'a', 'b', 'c' ou 'd'
 
 # Travou? Descomente a linha abaixo para ler a explicacao:
 # explicar('status_viacep_de_cep_que_nao_existe')
@@ -790,7 +790,11 @@ de olhar o conteudo.
     200
 '''
 def status_do_cep(cep):
-    pass
+    dic = busca_cep(cep)
+    if cep in dic.values():
+        return '200'
+    else:
+        return '404'
 
 
 if desafio:
