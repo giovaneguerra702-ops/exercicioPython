@@ -680,7 +680,7 @@ print('Exercicio a irma na pergunta solta: OK')
 # Teste adicionando um cliente com o CEP 50030230: o endereco inteiro
 # preenche sozinho. E o CEP 99999999, que nao existe, precisa ser avisado
 # em vez de preencher - o mesmo if/else que a Fase 3 ensinou.
-
+###
 
 print('\n=== PARABENS! Todos os exercicios completos! ===')
 
