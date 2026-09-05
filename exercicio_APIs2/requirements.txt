@@ -1,0 +1,11 @@
+# requirements.txt - a lista de bibliotecas que este projeto precisa.
+#
+# Para instalar tudo de uma vez, no terminal, dentro desta pasta:
+#
+#     pip install -r requirements.txt
+#
+# O sinal >= quer dizer "esta versao ou mais nova". Fixar a versao assim
+# faz o codigo rodar igual na sua maquina e na do professor.
+
+requests>=2.31          # faz o download: eh o requests.get(url).json()
+requests-cache>=1.2     # guarda o que ja foi baixado, pra nao pedir duas vezes
