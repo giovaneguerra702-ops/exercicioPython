@@ -33,7 +33,7 @@ def verifica(valor, codigo, ordem_importa=False, nome_questao=''):
 # arquivo explicacao_arvores.py, que vem junto com este. Quando travar
 # numa questao, descomente a linha `# explicar('nome')` logo abaixo dela
 # e rode o arquivo: a explicacao aparece.
-def explicar(questao):
+'''def explicar(questao):
     try:
         from explicacao_arvores import EXPLICACOES
     except ImportError:
@@ -49,7 +49,7 @@ def explicar(questao):
     print(codecs.decode(EXPLICACOES[questao], 'rot_13'))
     input("aperte enter para continuar")
 # fim do helper de dicas
-
+'''
 
 r'''
 EXPLICACAO
@@ -579,12 +579,15 @@ a propria raiz.
     7
 '''
 def tudo_a_esquerda(arvore):
-    if 'esquerda' not in arvore:
-        return 'esquerda vazia'
-    esquerda = arvore['esquerda']
-    if esquerda == {}:
-        return arvore['raiz']
-    return tudo_a_esquerda(esquerda)
+    while arvore['esquerda'] != {}:
+        arvore = arvore['esquerda']
+    return arvore['raiz']
+
+def tudo_a_direita(arvore):
+    while arvore['direita'] != {}:
+        arvore = arvore['direita']
+    return arvore['raiz']
+
     
 
 print('  iniciando testes de tudo_a_esquerda')
@@ -614,15 +617,19 @@ Ela retorna True se o numero esta na arvore, False caso contrario.
     >>> busca({'raiz': 5, 'esquerda': {'raiz': 2, 'esquerda': {}, 'direita': {}}, 'direita': {}}, 3)
     False
 '''
-def busca(arvore, procurado):
+def busca(arvore,procurado):
     while True:
         if arvore == {}:
             return False
-        if arvore['raiz'] == procurado:
+        elif arvore['raiz'] == procurado:
             return True
-        elif arvore['raiz'] < procurado:
-            arvore = arvore['esquerda']
         elif arvore['raiz'] > procurado:
+            if arvore['esquerda'] == {}:
+                return False
+            arvore = arvore['esquerda']
+        elif arvore['raiz'] < procurado:
+            if arvore['direita'] == {}:
+                return False
             arvore = arvore['direita']
             
 print('  iniciando testes de busca')
@@ -698,8 +705,21 @@ deixar ele com raiz, esquerda e direita.
     >>> t
     {'raiz': 5, 'esquerda': {'raiz': 2, 'esquerda': {}, 'direita': {}}, 'direita': {}}
 '''
-def insere(arvore, elemento):
-    pass
+def insere(arvore,elemento):
+    while True:
+        if arvore == {}: #se estiver vazia ele adiciona
+            arvore['raiz'] = elemento
+            arvore['esquerda'] = {}
+            arvore['direita'] = {}
+            return
+        elif arvore['raiz'] == elemento: #inicio da verificaçao caso, ja exista algum item adicionado na arvre
+            return
+        elif arvore['raiz'] > elemento:
+            arvore =arvore['esquerda']
+        elif arvore['raiz'] < elemento:
+            arvore = arvore['direita']
+
+
 
 print('  iniciando testes de insere')
 print('  (Se travar aqui, voce tem um loop infinito - rode no pythontutor para ver o que esta acontecendo.)')
@@ -801,7 +821,10 @@ te apresentar agora.
     0
 '''
 def conta(arvore):
-    return 10
+    if arvore == {}:
+        return 0
+    return 1 + conta(arvore['direita']) + conta(arvore['esquerda'])
+
 
 print('  iniciando testes de conta')
 assert conta(arvore10) == 7, f'conta(arvore10) deveria ser 7, voce retornou {conta(arvore10)}'
@@ -824,8 +847,13 @@ presentes em uma arvore. Acho que recursao pode ser util aqui.
     >>> soma({})
     0
 '''
-def soma(arvore):
-    return 12
+def soma(arvore): 
+    if arvore == {}:
+        return 0
+    soma_direita  = soma(arvore['direita']) #chama denovo a funcao soma para a arvore da direita
+    soma_esquerda = soma(arvore['esquerda'])
+    return arvore['raiz'] + soma_esquerda + soma_direita
+
 
 print('  iniciando testes de soma')
 assert soma(ex1) == 71, f'soma(ex1) deveria ser 71, voce retornou {soma(ex1)}'
